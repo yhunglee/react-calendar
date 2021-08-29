@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 
 const containerStyle = css`
-  width: 240px;
+  width: 230px;
 `;
 const dayOfWeekStyle = css`
   display: flex;
