@@ -118,7 +118,6 @@ export const DateView: React.VFC = (props) => {
 
   return (
     <div className="container" css={containerStyle}>
-      {/* TODO: put info-action-bar here */}
       <NavigationBar />
 
       <div className="day-name-of-week" css={dayOfWeekStyle}>
