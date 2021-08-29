@@ -50,7 +50,7 @@ export const DateView: React.VFC = (props) => {
         2 * first2DigitYear) %
         7) +
         7) %
-      7;
+      7; // Notice: modulo 7 的過程已經轉換過負數
     return numOfDay;
   }
 
