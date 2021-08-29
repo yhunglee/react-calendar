@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import { NavigationBar } from "../NavigationBar/NavigationBar";
 
 const containerStyle = css`
   width: 240px;
@@ -118,6 +119,7 @@ export const DateView: React.VFC = (props) => {
   return (
     <div className="container" css={containerStyle}>
       {/* TODO: put info-action-bar here */}
+      <NavigationBar />
 
       <div className="day-name-of-week" css={dayOfWeekStyle}>
         <div className="element name">Su</div>
