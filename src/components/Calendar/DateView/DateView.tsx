@@ -16,8 +16,15 @@ const dayOfWeekStyle = css`
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     width: 20px;
+    border-radius: 50%;
+
     &.out-of-range {
       color: #aaa;
+    }
+
+    &:not(.out-of-range):hover {
+      cursor: pointer;
+      background-color: #ccc;
     }
   }
 
