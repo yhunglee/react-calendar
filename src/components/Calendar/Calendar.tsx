@@ -6,6 +6,7 @@ import { MonthView } from "./MonthView/MonthView";
 export const Calendar: React.VFC = (props) => {
   let [today, setToday] = useState(new Date());
   let [viewDate, setViewDate] = useState(new Date());
+  let [selectedDate, setSelectedDate] = useState();
 
   function previousMonth() {
     setViewDate(new Date(viewDate.setMonth(viewDate.getMonth() - 1)));
@@ -36,6 +37,8 @@ export const Calendar: React.VFC = (props) => {
           year: "numeric",
         })}`}
         viewDate={viewDate}
+        selectedDate={selectedDate}
+        toSelectDate={setSelectedDate}
       />
       <MonthView
         info={`${viewDate.toLocaleString("en-US", { year: "numeric" })}`}
