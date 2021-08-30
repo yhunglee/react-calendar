@@ -28,9 +28,13 @@ export const Calendar: React.VFC = (props) => {
       <DateView
         prevAct={previousMonth}
         nextAct={nextMonth}
-        info={`${viewDate.toLocaleString("en-US", {
-          month: "long",
-        })} ${viewDate.toLocaleString("en-US", { year: "numeric" })}`}
+        info={`${viewDate
+          .toLocaleString("en-US", {
+            month: "long",
+          })
+          .substr(0, 3)} ${viewDate.toLocaleString("en-US", {
+          year: "numeric",
+        })}`}
         viewDate={viewDate}
       />
       <MonthView
