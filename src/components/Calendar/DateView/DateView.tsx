@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
+import { NavigateAction } from "../types/NavigateActType";
 
 const containerStyle = css`
   width: 230px;
@@ -25,9 +26,16 @@ const dayOfWeekStyle = css`
   }
 `;
 
-export const DateView: React.VFC = (props) => {
-  let year = 2021;
-  let month = 7; // range: 0 ~ 11
+export const DateView: React.VFC<NavigateAction> = ({
+  prevAct,
+  nextAct,
+  info,
+  viewDate,
+}) => {
+  let year =
+    viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
+  let month =
+    viewDate !== undefined ? viewDate.getMonth() : new Date().getMonth(); // range: 0 ~ 11
 
   /**
    * 用 Gaussian algorithm 得知 日期幾年幾月幾號 是一週的第幾天
@@ -118,7 +126,7 @@ export const DateView: React.VFC = (props) => {
 
   return (
     <div className="container" css={containerStyle}>
-      <NavigationBar />
+      <NavigationBar prevAct={prevAct} nextAct={nextAct} info={info} />
 
       <div className="day-name-of-week" css={dayOfWeekStyle}>
         <div className="element name">Su</div>
