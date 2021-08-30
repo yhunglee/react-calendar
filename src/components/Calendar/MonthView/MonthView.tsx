@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
+import { NavigateAction } from "../types/NavigateActType";
 
 const containerStyle = css`
   width: 230px;
@@ -23,7 +24,11 @@ const monthListStyle = css`
   }
 `;
 
-export const MonthView: React.VFC = (props) => {
+export const MonthView: React.VFC<NavigateAction> = ({
+  prevAct,
+  nextAct,
+  info,
+}) => {
   let monthList = [
     "Jan",
     "Feb",
@@ -41,7 +46,7 @@ export const MonthView: React.VFC = (props) => {
 
   return (
     <div className="container" css={containerStyle}>
-      <NavigationBar />
+      <NavigationBar prevAct={prevAct} nextAct={nextAct} info={info} />
 
       <div className="month-list" css={monthListStyle}>
         {monthList.map((elem, idx) => {
