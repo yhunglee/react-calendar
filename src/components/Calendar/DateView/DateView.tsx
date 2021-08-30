@@ -3,6 +3,7 @@
 import { css } from "@emotion/react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
+import { SelectDateType } from "../types/SelectDateType";
 
 const containerStyle = css`
   width: 230px;
@@ -26,6 +27,11 @@ const dayOfWeekStyle = css`
       cursor: pointer;
       background-color: #ccc;
     }
+
+    &.picked {
+      background-color: #db3d44;
+      color: #fff;
+    }
   }
 
   > .name {
@@ -33,11 +39,13 @@ const dayOfWeekStyle = css`
   }
 `;
 
-export const DateView: React.VFC<NavigateAction> = ({
+export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   prevAct,
   nextAct,
   info,
   viewDate,
+  selectedDate,
+  toSelectDate,
 }) => {
   let year =
     viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
@@ -79,16 +87,37 @@ export const DateView: React.VFC<NavigateAction> = ({
     let firstDate = new Date(year, month, 1);
 
     let calcDate = new Date(firstDate);
+
     let calcStartDate = new Date(firstDate);
 
     let numOfDayOfWeek = genDayOfWeek(year, month, 1),
       i = 0;
+    let pickDate: string = "";
+    let compareDate: string = "";
+
+    if (selectedDate === undefined) {
+      compareDate = new Date().toLocaleString();
+    } else {
+      compareDate =
+        selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate();
+    }
+
     while (i < numOfDayOfWeek) {
       calcStartDate.setDate(calcStartDate.getDate() - 1);
       nodeAry.unshift(
         <div
           className="element out-of-range"
-          key={calcStartDate.getMonth() + "-" + calcStartDate.getDate()}
+          key={
+            calcStartDate.getFullYear() +
+            "-" +
+            calcStartDate.getMonth() +
+            "-" +
+            calcStartDate.getDate()
+          }
         >
           {calcStartDate.getDate()}
         </div>
@@ -100,8 +129,29 @@ export const DateView: React.VFC<NavigateAction> = ({
       if (calcDate.getMonth() === month) {
         nodeAry.push(
           <div
-            className="element"
-            key={calcDate.getMonth() + "-" + calcDate.getDate()}
+            className={`element ${pickDate == compareDate ? "picked" : ""}`}
+            key={
+              calcDate.getFullYear() +
+              "-" +
+              calcDate.getMonth() +
+              "-" +
+              calcDate.getDate()
+            }
+            data-tag={
+              calcDate.getFullYear() +
+              "-" +
+              (calcDate.getMonth() + 1) +
+              "-" +
+              calcDate.getDate()
+            }
+            onClick={(event) => {
+              toSelectDate(
+                new Date(event.currentTarget.getAttribute("data-tag") + "")
+              );
+
+              pickDate = event.currentTarget.getAttribute("data-tag") + "";
+              // console.log(`pickDate: ${pickDate}, compareDate: ${compareDate}`); // debug
+            }}
           >
             {calcDate.getDate()}
           </div>
@@ -120,7 +170,13 @@ export const DateView: React.VFC<NavigateAction> = ({
       nodeAry.push(
         <div
           className="element out-of-range"
-          key={calcDate.getMonth() + "-" + calcDate.getDate()}
+          key={
+            calcDate.getFullYear() +
+            "-" +
+            calcDate.getMonth() +
+            "-" +
+            calcDate.getDate()
+          }
         >
           {calcDate.getDate()}
         </div>
