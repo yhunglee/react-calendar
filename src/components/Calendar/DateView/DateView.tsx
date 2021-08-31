@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import { useEffect } from "react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
 import { SelectDateType } from "../types/SelectDateType";
@@ -52,6 +53,20 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   let month =
     viewDate !== undefined ? viewDate.getMonth() : new Date().getMonth(); // range: 0 ~ 11
 
+  let compareDate: string = "";
+  useEffect(() => {
+    if (selectedDate === undefined) {
+      compareDate = new Date().toLocaleString();
+    } else {
+      compareDate =
+        selectedDate.getFullYear() +
+        "-" +
+        (selectedDate.getMonth() + 1) +
+        "-" +
+        selectedDate.getDate();
+    }
+  }, [selectedDate]);
+
   /**
    * 用 Gaussian algorithm 得知 日期幾年幾月幾號 是一週的第幾天
    *
@@ -92,19 +107,8 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
     let numOfDayOfWeek = genDayOfWeek(year, month, 1),
       i = 0;
-    let pickDate: string = "";
-    let compareDate: string = "";
 
-    if (selectedDate === undefined) {
-      compareDate = new Date().toLocaleString();
-    } else {
-      compareDate =
-        selectedDate.getFullYear() +
-        "-" +
-        (selectedDate.getMonth() + 1) +
-        "-" +
-        selectedDate.getDate();
-    }
+    // let pickDate = "";
 
     while (i < numOfDayOfWeek) {
       calcStartDate.setDate(calcStartDate.getDate() - 1);
@@ -127,9 +131,15 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
     while (true) {
       if (calcDate.getMonth() === month) {
+        const pickDate =
+          calcDate.getFullYear() +
+          "-" +
+          (calcDate.getMonth() + 1) +
+          "-" +
+          calcDate.getDate();
         nodeAry.push(
           <div
-            className={`element ${pickDate == compareDate ? "picked" : ""}`}
+            className={`element ${pickDate === compareDate ? "picked" : ""}`}
             key={
               calcDate.getFullYear() +
               "-" +
@@ -148,9 +158,6 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
               toSelectDate(
                 new Date(event.currentTarget.getAttribute("data-tag") + "")
               );
-
-              pickDate = event.currentTarget.getAttribute("data-tag") + "";
-              // console.log(`pickDate: ${pickDate}, compareDate: ${compareDate}`); // debug
             }}
           >
             {calcDate.getDate()}
