@@ -30,6 +30,10 @@ const dayOfWeekStyle = css`
       background-color: #ccc;
     }
 
+    &.today {
+      color: #db3d44;
+    }
+
     &.picked {
       background-color: #db3d44;
       color: #fff;
@@ -48,11 +52,17 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   viewDate,
   selectedDate,
   toSelectDate,
+  today,
 }) => {
   let year =
     viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
   let month =
     viewDate !== undefined ? viewDate.getMonth() : new Date().getMonth(); // range: 0 ~ 11
+
+  let [nowDay, setNowday] = useState(
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()
+  );
+
   let [compareDate, setCompareDate] = useState("");
   useEffect(() => {
     if (selectedDate === undefined) {
@@ -139,7 +149,9 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
         nodeAry.push(
           <div
-            className={`element ${pickDate === compareDate ? "picked" : ""}`}
+            className={`element ${pickDate === compareDate ? "picked" : ""} ${
+              pickDate === nowDay ? "today" : ""
+            } `}
             key={
               calcDate.getFullYear() +
               "-" +
