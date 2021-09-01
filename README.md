@@ -1,6 +1,6 @@
 Author: Howard Lee
 
-Built with Typescript and Emotion package.
+Built with Typescript and Emotion package. This project is incomplete and the result screenshot is put at `src/assets` folder
 
 # Getting Started with Create React App
 
