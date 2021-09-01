@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import * as ReactDOM from "react-dom";
 import "./App.css";
 import Calendar from "./components/Calendar";
 
