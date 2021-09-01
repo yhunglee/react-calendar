@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
 import { SelectDateType } from "../types/SelectDateType";
@@ -52,18 +52,18 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
     viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
   let month =
     viewDate !== undefined ? viewDate.getMonth() : new Date().getMonth(); // range: 0 ~ 11
-
-  let compareDate: string = "";
+  let [compareDate, setCompareDate] = useState("");
   useEffect(() => {
     if (selectedDate === undefined) {
-      compareDate = new Date().toLocaleString();
+      setCompareDate(new Date().toLocaleString());
     } else {
-      compareDate =
+      setCompareDate(
         selectedDate.getFullYear() +
-        "-" +
-        (selectedDate.getMonth() + 1) +
-        "-" +
-        selectedDate.getDate();
+          "-" +
+          (selectedDate.getMonth() + 1) +
+          "-" +
+          selectedDate.getDate()
+      );
     }
   }, [selectedDate]);
 
@@ -108,8 +108,6 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
     let numOfDayOfWeek = genDayOfWeek(year, month, 1),
       i = 0;
 
-    // let pickDate = "";
-
     while (i < numOfDayOfWeek) {
       calcStartDate.setDate(calcStartDate.getDate() - 1);
       nodeAry.unshift(
@@ -131,12 +129,13 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
     while (true) {
       if (calcDate.getMonth() === month) {
-        const pickDate =
+        let pickDate =
           calcDate.getFullYear() +
           "-" +
           (calcDate.getMonth() + 1) +
           "-" +
           calcDate.getDate();
+
         nodeAry.push(
           <div
             className={`element ${pickDate === compareDate ? "picked" : ""}`}
@@ -147,14 +146,9 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
               "-" +
               calcDate.getDate()
             }
-            data-tag={
-              calcDate.getFullYear() +
-              "-" +
-              (calcDate.getMonth() + 1) +
-              "-" +
-              calcDate.getDate()
-            }
+            data-tag={pickDate}
             onClick={(event) => {
+              // 藉由 parent component 傳下來的選擇日期函式，設定已選擇日期
               toSelectDate(
                 new Date(event.currentTarget.getAttribute("data-tag") + "")
               );
