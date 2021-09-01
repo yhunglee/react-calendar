@@ -19,6 +19,7 @@ const dayOfWeekStyle = css`
     margin-right: 0.25rem;
     width: 20px;
     border-radius: 50%;
+    text-align: center;
 
     &.out-of-range {
       color: #aaa;
