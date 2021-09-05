@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
+import { SelectMonthType } from "../types/SelectMonthType";
 
 const containerStyle = css`
   width: 230px;
@@ -16,18 +17,26 @@ const monthListStyle = css`
     width: fit-content;
     padding: 0.5rem;
     margin: auto;
+    border-radius: 50%;
 
     &:hover {
       cursor: pointer;
       background-color: #ccc;
     }
+
+    &.picked {
+      background-color: #db3d44;
+      color: #fff;
+    }
   }
 `;
 
-export const MonthView: React.VFC<NavigateAction> = ({
+export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
   prevAct,
   nextAct,
   info,
+  viewDate,
+  selectedDate,
 }) => {
   let monthList = [
     "Jan",
@@ -43,6 +52,8 @@ export const MonthView: React.VFC<NavigateAction> = ({
     "Nov",
     "Dec",
   ];
+  let viewYear =
+    viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
 
   return (
     <div className="container" css={containerStyle}>
@@ -51,7 +62,16 @@ export const MonthView: React.VFC<NavigateAction> = ({
       <div className="month-list" css={monthListStyle}>
         {monthList.map((elem, idx) => {
           return (
-            <div className="element" key={idx}>
+            <div
+              className={`element ${
+                selectedDate !== undefined &&
+                selectedDate.getFullYear() === viewYear &&
+                selectedDate.getMonth() === idx
+                  ? "picked"
+                  : ""
+              }`}
+              key={idx}
+            >
               {elem}
             </div>
           );
