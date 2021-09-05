@@ -35,7 +35,6 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
   prevAct,
   nextAct,
   info,
-  viewDate,
   selectedDate,
 }) => {
   let monthList = [
@@ -52,8 +51,6 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
     "Nov",
     "Dec",
   ];
-  let viewYear =
-    viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
 
   return (
     <div className="container" css={containerStyle}>
@@ -65,7 +62,7 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
             <div
               className={`element ${
                 selectedDate !== undefined &&
-                selectedDate.getFullYear() === viewYear &&
+                selectedDate.getFullYear() === parseInt(info, 10) &&
                 selectedDate.getMonth() === idx
                   ? "picked"
                   : ""
