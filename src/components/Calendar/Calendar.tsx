@@ -46,6 +46,7 @@ export const Calendar: React.VFC = (props) => {
         prevAct={previousYear}
         nextAct={nextYear}
         viewDate={viewDate}
+        selectedDate={selectedDate}
       />
     </div>
   );
