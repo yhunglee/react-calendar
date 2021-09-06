@@ -82,6 +82,14 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
     }
   }, [selectedDate]);
 
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
+    // 藉由 parent component 傳下來的選擇日期函式，設定已選擇日期
+    toSelectDate(new Date(event.currentTarget.getAttribute("data-tag") + ""));
+
+    // 設定要切換到哪個畫面
+    setNextView("DATE_VIEW");
+  }
+
   /**
    * 用 Gaussian algorithm 得知 日期幾年幾月幾號 是一週的第幾天
    *
@@ -153,9 +161,8 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
         nodeAry.push(
           <div
-            className={`element ${pickDate === compareDate ? "picked" : ""} ${
-              pickDate === nowDay ? "today" : ""
-            } `}
+            className={`element ${pickDate === compareDate ? "picked" : ""}
+            ${pickDate === nowDay ? "today" : ""} `}
             key={
               calcDate.getFullYear() +
               "-" +
@@ -164,15 +171,7 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
               calcDate.getDate()
             }
             data-tag={pickDate}
-            onClick={(event) => {
-              // 藉由 parent component 傳下來的選擇日期函式，設定已選擇日期
-              toSelectDate(
-                new Date(event.currentTarget.getAttribute("data-tag") + "")
-              );
-
-              // 設定要切換到哪個畫面
-              setNextView("DATE_VIEW");
-            }}
+            onClick={handleClick}
           >
             {calcDate.getDate()}
           </div>
