@@ -52,7 +52,6 @@ export const Calendar: React.VFC = (props) => {
   }
 
   function setPrevView(currView: string) {
-    console.log(`currView at setPrevView: ${currView}`); // debug
     switch (currView) {
       case "MONTH_VIEW": {
         setCurrentView("YEAR_VIEW");
@@ -74,7 +73,6 @@ export const Calendar: React.VFC = (props) => {
   }
 
   function setNextView(currView: string) {
-    console.log(`currView at setNextView: ${currView}`); // debug
     switch (currView) {
       case "YEAR_VIEW": {
         setCurrentView("MONTH_VIEW");
