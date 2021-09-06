@@ -12,6 +12,7 @@ export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
   setPrevView,
   setNextView,
   currentView,
+  setViewDateByYear,
 }) => {
   const containerStyle = css`
     width: 230px;
@@ -75,7 +76,13 @@ export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
           }`}
           key={startYear + i}
           data-tag={startYear + i}
-          onClick={() => setNextView("YEAR_VIEW")}
+          onClick={(event) => {
+            // 表達現在是什麼頁面，下一站依照條件要前往哪一個頁面
+            setNextView("YEAR_VIEW");
+
+            // 依照選定的月份，去設定觀看畫面的日期
+            setViewDateByYear(event.currentTarget.getAttribute("data-tag"));
+          }}
         >
           {startYear + i}
         </div>

@@ -12,6 +12,7 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
   setPrevView,
   setNextView,
   currentView,
+  setViewDateByMonth,
 }) => {
   const containerStyle = css`
     width: 230px;
@@ -78,7 +79,13 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
                   : ""
               }`}
               key={idx}
-              onClick={() => setNextView("MONTH_VIEW")}
+              onClick={() => {
+                // 表達現在是什麼頁面，下一站依照條件要前往哪一個頁面
+                setNextView("MONTH_VIEW");
+
+                // 依照選定的月份，去設定觀看畫面的日期
+                setViewDateByMonth(idx);
+              }}
             >
               {elem}
             </div>
