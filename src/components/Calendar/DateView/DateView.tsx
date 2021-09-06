@@ -6,45 +6,6 @@ import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
 import { SelectDateType } from "../types/SelectDateType";
 
-const containerStyle = css`
-  width: 230px;
-`;
-const dayOfWeekStyle = css`
-  display: flex;
-  margin: auto 1rem;
-  flex-wrap: wrap;
-
-  > .element {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-    width: 20px;
-    border-radius: 50%;
-    text-align: center;
-
-    &.out-of-range {
-      color: #aaa;
-    }
-
-    &:not(.out-of-range):hover {
-      cursor: pointer;
-      background-color: #ccc;
-    }
-
-    &.today {
-      color: #db3d44;
-    }
-
-    &.picked {
-      background-color: #db3d44;
-      color: #fff;
-    }
-  }
-
-  > .name {
-    font-weight: bold;
-  }
-`;
-
 export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   prevAct,
   nextAct,
@@ -53,7 +14,50 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   selectedDate,
   toSelectDate,
   today,
+  setPrevView,
+  setNextView,
+  currentView,
 }) => {
+  const containerStyle = css`
+    width: 230px;
+    display: ${currentView === "DATE_VIEW" ? "block" : "none"};
+  `;
+  const dayOfWeekStyle = css`
+    display: ${currentView === "DATE_VIEW" ? "flex" : "none"};
+    margin: auto 1rem;
+    flex-wrap: wrap;
+
+    > .element {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+      width: 20px;
+      border-radius: 50%;
+      text-align: center;
+
+      &.out-of-range {
+        color: #aaa;
+      }
+
+      &:not(.out-of-range):hover {
+        cursor: pointer;
+        background-color: #ccc;
+      }
+
+      &.today {
+        color: #db3d44;
+      }
+
+      &.picked {
+        background-color: #db3d44;
+        color: #fff;
+      }
+    }
+
+    > .name {
+      font-weight: bold;
+    }
+  `;
+
   let year =
     viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
   let month =
@@ -165,6 +169,9 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
               toSelectDate(
                 new Date(event.currentTarget.getAttribute("data-tag") + "")
               );
+
+              // 設定要切換到哪個畫面
+              setNextView("DATE_VIEW");
             }}
           >
             {calcDate.getDate()}
@@ -203,7 +210,13 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
   return (
     <div className="container" css={containerStyle}>
-      <NavigationBar prevAct={prevAct} nextAct={nextAct} info={info} />
+      <NavigationBar
+        prevAct={prevAct}
+        nextAct={nextAct}
+        info={info}
+        setPrevView={() => setPrevView("DATE_VIEW")}
+        currentView={currentView}
+      />
 
       <div className="day-name-of-week" css={dayOfWeekStyle}>
         <div className="element name">Su</div>

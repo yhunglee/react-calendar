@@ -31,6 +31,7 @@ export const NavigationBar: React.VFC<NavigateAction> = ({
   prevAct,
   nextAct,
   info,
+  setPrevView,
 }) => {
   return (
     <div className="info-action-bar" css={infoActionStyle}>
@@ -38,7 +39,9 @@ export const NavigationBar: React.VFC<NavigateAction> = ({
         &lt;
       </span>
 
-      <div className="show-info">{info}</div>
+      <div className="show-info" onClick={() => setPrevView("MONTH_VIEW")}>
+        {info}
+      </div>
       <span className="next action" onClick={() => nextAct()}>
         &gt;
       </span>

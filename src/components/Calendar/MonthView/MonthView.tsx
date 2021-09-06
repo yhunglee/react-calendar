@@ -4,39 +4,43 @@ import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
 import { SelectMonthType } from "../types/SelectMonthType";
 
-const containerStyle = css`
-  width: 230px;
-`;
-
-const monthListStyle = css`
-  display: flex;
-  margin: auto 1rem;
-  flex-wrap: wrap;
-
-  > .element {
-    width: fit-content;
-    padding: 0.5rem;
-    margin: auto;
-    border-radius: 50%;
-
-    &:hover {
-      cursor: pointer;
-      background-color: #ccc;
-    }
-
-    &.picked {
-      background-color: #db3d44;
-      color: #fff;
-    }
-  }
-`;
-
 export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
   prevAct,
   nextAct,
   info,
   selectedDate,
+  setPrevView,
+  setNextView,
+  currentView,
 }) => {
+  const containerStyle = css`
+    width: 230px;
+    display: ${currentView === "MONTH_VIEW" ? "block" : "none"};
+  `;
+
+  const monthListStyle = css`
+    display: ${currentView === "MONTH_VIEW" ? "flex" : "none"};
+    margin: auto 1rem;
+    flex-wrap: wrap;
+
+    > .element {
+      width: fit-content;
+      padding: 0.5rem;
+      margin: auto;
+      border-radius: 50%;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #ccc;
+      }
+
+      &.picked {
+        background-color: #db3d44;
+        color: #fff;
+      }
+    }
+  `;
+
   let monthList = [
     "Jan",
     "Feb",
@@ -54,7 +58,13 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
 
   return (
     <div className="container" css={containerStyle}>
-      <NavigationBar prevAct={prevAct} nextAct={nextAct} info={info} />
+      <NavigationBar
+        prevAct={prevAct}
+        nextAct={nextAct}
+        info={info}
+        setPrevView={() => setPrevView("MONTH_VIEW")}
+        currentView={currentView}
+      />
 
       <div className="month-list" css={monthListStyle}>
         {monthList.map((elem, idx) => {
@@ -68,6 +78,7 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
                   : ""
               }`}
               key={idx}
+              onClick={() => setNextView("MONTH_VIEW")}
             >
               {elem}
             </div>

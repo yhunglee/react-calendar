@@ -4,42 +4,47 @@ import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
 import { SelectYearType } from "../types/SelectYearType";
 
-const containerStyle = css`
-  width: 230px;
-`;
-
-const yearListStyle = css`
-  display: flex;
-  margin: auto 1rem;
-  flex-wrap: wrap;
-
-  > .element {
-    width: fit-content;
-    padding: 0.5rem;
-    margin: auto;
-    border-radius: 50%;
-
-    &.out-of-range {
-      color: #aaa;
-    }
-
-    &:not(.out-of-range):hover {
-      cursor: pointer;
-      background-color: #ccc;
-    }
-
-    &.picked {
-      background-color: #db3d44;
-      color: #fff;
-    }
-  }
-`;
 export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
   prevAct,
   nextAct,
   viewDate,
   selectedDate,
+  setPrevView,
+  setNextView,
+  currentView,
 }) => {
+  const containerStyle = css`
+    width: 230px;
+    display: ${currentView === "YEAR_VIEW" ? "block" : "none"};
+  `;
+
+  const yearListStyle = css`
+    display: ${currentView === "YEAR_VIEW" ? "flex" : "none"};
+    margin: auto 1rem;
+    flex-wrap: wrap;
+
+    > .element {
+      width: fit-content;
+      padding: 0.5rem;
+      margin: auto;
+      border-radius: 50%;
+
+      &.out-of-range {
+        color: #aaa;
+      }
+
+      &:not(.out-of-range):hover {
+        cursor: pointer;
+        background-color: #ccc;
+      }
+
+      &.picked {
+        background-color: #db3d44;
+        color: #fff;
+      }
+    }
+  `;
+
   let year =
     viewDate !== undefined ? viewDate.getFullYear() : new Date().getFullYear();
   let prevYearQuotient = Math.floor(year / 10) - 1;
@@ -52,7 +57,7 @@ export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
 
     // 產生 一個 十位數前於本範圍的年份
     nodeAry.push(
-      <div className="element out-of-range" key={i}>
+      <div className="element out-of-range" key={prevYear}>
         {prevYear}
       </div>
     );
@@ -70,6 +75,7 @@ export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
           }`}
           key={startYear + i}
           data-tag={startYear + i}
+          onClick={() => setNextView("YEAR_VIEW")}
         >
           {startYear + i}
         </div>
@@ -93,6 +99,8 @@ export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
         nextAct={nextAct}
         // info={info}
         info={`${startYear} - ${startYear + 9}`}
+        setPrevView={() => setPrevView("YEAR_VIEW")}
+        currentView={currentView}
       />
 
       <div className="year-list" css={yearListStyle}>
