@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { DateView } from "./DateView/DateView";
 import { MonthView } from "./MonthView/MonthView";
+import { YearView } from "./YearView/YearView";
 
 export const Calendar: React.VFC = (props) => {
   let [today, setToday] = useState(new Date());
@@ -23,6 +24,10 @@ export const Calendar: React.VFC = (props) => {
   function nextYear() {
     setViewDate(new Date(viewDate.setFullYear(viewDate.getFullYear() + 1)));
   }
+
+  function previousTenYear() {}
+
+  function nextTenYear() {}
 
   return (
     <div className="container">
@@ -46,6 +51,12 @@ export const Calendar: React.VFC = (props) => {
         prevAct={previousYear}
         nextAct={nextYear}
         viewDate={viewDate}
+        selectedDate={selectedDate}
+      />
+      <YearView
+        prevAct={previousTenYear}
+        nextAct={nextTenYear}
+        info={""}
         selectedDate={selectedDate}
       />
     </div>
