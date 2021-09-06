@@ -1,5 +1,6 @@
 import { Calendar } from "./Calendar";
 
-export default {
+const MyCalendar = {
   Calendar,
 };
+export default MyCalendar;
