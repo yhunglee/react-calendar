@@ -63,7 +63,7 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   let month =
     viewDate !== undefined ? viewDate.getMonth() : new Date().getMonth(); // range: 0 ~ 11
 
-  let [nowDay, setNowday] = useState(
+  let [nowDay] = useState(
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()
   );
 
