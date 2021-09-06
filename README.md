@@ -1,6 +1,7 @@
 Author: Howard Lee
 
-Built with Typescript and Emotion package. This project is complete and the result screenshot is put at `src/assets` folder
+Built with Typescript and Emotion package. This project is complete and the result screenshot is put at `src/assets` folder.
+This is for Frontend developer pre-test and demonstration about I can code using React.
 
 # Getting Started with Create React App
 
