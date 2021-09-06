@@ -6,7 +6,7 @@ import { ViewKind } from "./types/ViewKind";
 import { YearView } from "./YearView/YearView";
 
 export const Calendar: React.VFC = (props) => {
-  let [today, setToday] = useState(new Date());
+  let [today] = useState(new Date());
   let [viewDate, setViewDate] = useState(new Date());
   let [selectedDate, setSelectedDate] = useState();
   let [currentView, setCurrentView] = useState<ViewKind>("DATE_VIEW");
