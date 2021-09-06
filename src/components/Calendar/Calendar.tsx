@@ -25,9 +25,13 @@ export const Calendar: React.VFC = (props) => {
     setViewDate(new Date(viewDate.setFullYear(viewDate.getFullYear() + 1)));
   }
 
-  function previousTenYear() {}
+  function previousTenYears() {
+    setViewDate(new Date(viewDate.setFullYear(viewDate.getFullYear() - 10)));
+  }
 
-  function nextTenYear() {}
+  function nextTenYears() {
+    setViewDate(new Date(viewDate.setFullYear(viewDate.getFullYear() + 10)));
+  }
 
   return (
     <div className="container">
@@ -54,10 +58,11 @@ export const Calendar: React.VFC = (props) => {
         selectedDate={selectedDate}
       />
       <YearView
-        prevAct={previousTenYear}
-        nextAct={nextTenYear}
+        prevAct={previousTenYears}
+        nextAct={nextTenYears}
         info={""}
         selectedDate={selectedDate}
+        viewDate={viewDate}
       />
     </div>
   );
