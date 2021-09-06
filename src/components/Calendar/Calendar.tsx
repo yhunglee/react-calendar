@@ -35,6 +35,22 @@ export const Calendar: React.VFC = (props) => {
     setViewDate(new Date(viewDate.setFullYear(viewDate.getFullYear() + 10)));
   }
 
+  /**
+   * @param year number-type. 4-digit number
+   *
+   */
+  function setViewDateByYear(year: number, month: number) {
+    setViewDate(new Date(viewDate.setFullYear(year)));
+  }
+
+  /**
+   *
+   * @param month number-type. 0~11
+   */
+  function setViewDateByMonth(month: number) {
+    setViewDate(new Date(viewDate.setMonth(month)));
+  }
+
   function setPrevView(currView: string) {
     console.log(`currView at setPrevView: ${currView}`); // debug
     switch (currView) {
@@ -108,6 +124,7 @@ export const Calendar: React.VFC = (props) => {
         setPrevView={setPrevView}
         setNextView={setNextView}
         currentView={currentView}
+        setViewDateByMonth={setViewDateByMonth}
       />
       <YearView
         prevAct={previousTenYears}
@@ -118,6 +135,7 @@ export const Calendar: React.VFC = (props) => {
         setPrevView={setPrevView}
         setNextView={setNextView}
         currentView={currentView}
+        setViewDateByYear={setViewDateByYear}
       />
     </div>
   );
