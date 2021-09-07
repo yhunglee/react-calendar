@@ -1,11 +1,12 @@
 Author: Howard Lee
 
 Built with Typescript and Emotion package. This project is complete and the result screenshot is put at `src/assets` folder.
-This is for Frontend developer pre-test and demonstration about I can code using React.
+This is for Frontend developer pre-test and demonstration about I can code using React.  
+Support Chrome, Firefox and Safari desktop.
 
 # Demo page
 
-You can find the [demo](https://yhunglee.github.io/react-calendar)
+You can find the [demo](https://yhunglee.github.io/react-calendar).
 
 # Getting Started with Create React App
 
