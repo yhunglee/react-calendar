@@ -84,7 +84,11 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     // 藉由 parent component 傳下來的選擇日期函式，設定已選擇日期
-    toSelectDate(new Date(event.currentTarget.getAttribute("data-tag") + ""));
+    toSelectDate(
+      new Date(
+        event.currentTarget.getAttribute("data-tag")?.replaceAll("-", "/") + ""
+      )
+    );
 
     // 設定要切換到哪個畫面
     setNextView("DATE_VIEW");
