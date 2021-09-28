@@ -8,6 +8,15 @@ Support Chrome, Firefox and Safari desktop.
 
 You can find the [demo](https://yhunglee.github.io/react-calendar).
 
+### Deploy steps for demo page
+
+1. Use `yarn build` script
+2. Use `yarn deploy` script
+
+#### Notice: You must install `gh-pages` package.
+
+&nbsp;
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
