@@ -1,5 +1,5 @@
 export type SelectMonthType = {
-  selectedDate: Date | undefined;
+  selectedDate: Date | undefined | string;
   setPrevView: Function;
   setNextView: Function;
   setViewDateByMonth: Function;

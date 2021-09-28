@@ -1,5 +1,5 @@
 export type SelectDateType = {
-  selectedDate: Date | undefined;
+  selectedDate: Date | undefined | string;
   toSelectDate: Function;
   today: Date;
   setPrevView: Function;

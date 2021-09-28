@@ -1,5 +1,5 @@
 export type SelectYearType = {
-  selectedDate: Date | undefined;
+  selectedDate: Date | undefined | string;
   setPrevView: Function;
   setNextView: Function;
   setViewDateByYear: Function;
