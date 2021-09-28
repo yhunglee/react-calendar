@@ -70,6 +70,7 @@ export const YearView: React.VFC<NavigateAction & SelectYearType> = ({
         <div
           className={`element ${
             selectedDate !== undefined &&
+            selectedDate instanceof Date &&
             selectedDate.getFullYear() === startYear + i
               ? "picked"
               : ""

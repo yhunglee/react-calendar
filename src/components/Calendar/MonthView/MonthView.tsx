@@ -73,6 +73,7 @@ export const MonthView: React.VFC<NavigateAction & SelectMonthType> = ({
             <div
               className={`element ${
                 selectedDate !== undefined &&
+                selectedDate instanceof Date &&
                 selectedDate.getFullYear() === parseInt(info, 10) &&
                 selectedDate.getMonth() === idx
                   ? "picked"

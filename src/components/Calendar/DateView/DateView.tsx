@@ -71,7 +71,7 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   useEffect(() => {
     if (selectedDate === undefined) {
       setCompareDate(new Date().toLocaleString());
-    } else {
+    } else if (selectedDate instanceof Date) {
       setCompareDate(
         selectedDate.getFullYear() +
           "-" +
