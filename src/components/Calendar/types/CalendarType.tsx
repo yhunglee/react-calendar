@@ -1,4 +1,4 @@
 export type CalendarType = {
-  date: string | Object;
+  date: string;
   onSelect: Function;
 };
