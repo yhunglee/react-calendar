@@ -13,7 +13,28 @@ export const Calendar: React.VFC<CalendarType> = ({ date, onSelect }) => {
   let [currentView, setCurrentView] = useState<ViewKind>("DATE_VIEW");
 
   useEffect(() => {
+    /**
+     * @param year number-type. 4-digit number
+     * Notice: only use in this useEffect
+     */
+    function setViewDateByYearInUE(year: number) {
+      setViewDate(new Date(new Date(date).setFullYear(year)));
+    }
+
+    /**
+     *
+     * @param month number-type. 0~11
+     * Notice: only use in this useEffect
+     */
+    function setViewDateByMonthInUE(month: number) {
+      setViewDate(new Date(new Date(date).setMonth(month)));
+    }
     setSelectedDate(date);
+
+    if (date !== "") {
+      setViewDateByYearInUE(new Date(date).getFullYear());
+      setViewDateByMonthInUE(new Date(date).getMonth());
+    }
   }, [date]);
 
   /**
@@ -53,15 +74,16 @@ export const Calendar: React.VFC<CalendarType> = ({ date, onSelect }) => {
 
   /**
    * @param year number-type. 4-digit number
-   *
+   * Notice: use in child component
    */
-  function setViewDateByYear(year: number, month: number) {
+  function setViewDateByYear(year: number) {
     setViewDate(new Date(viewDate.setFullYear(year)));
   }
 
   /**
    *
    * @param month number-type. 0~11
+   * Notice: use in child component
    */
   function setViewDateByMonth(month: number) {
     setViewDate(new Date(viewDate.setMonth(month)));
