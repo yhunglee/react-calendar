@@ -9,8 +9,12 @@ import { YearView } from "./YearView/YearView";
 export const Calendar: React.VFC<CalendarType> = ({ date, onSelect }) => {
   let [today] = useState(new Date());
   let [viewDate, setViewDate] = useState(new Date());
-  let [selectedDate, setSelectedDate] = useState<Date | string>();
+  let [selectedDate, setSelectedDate] = useState<Date | string>(date);
   let [currentView, setCurrentView] = useState<ViewKind>("DATE_VIEW");
+
+  useEffect(() => {
+    setSelectedDate(date);
+  }, [date]);
 
   /**
    * 同時設定自身 component 和外部元件傳進來的值，

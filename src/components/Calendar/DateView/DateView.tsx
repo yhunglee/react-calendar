@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { NavigateAction } from "../types/NavigateActType";
 import { SelectDateType } from "../types/SelectDateType";
@@ -63,24 +63,7 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
   let month =
     viewDate !== undefined ? viewDate.getMonth() : new Date().getMonth(); // range: 0 ~ 11
 
-  let [nowDay] = useState(
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate()
-  );
-
-  let [compareDate, setCompareDate] = useState("");
-  useEffect(() => {
-    if (selectedDate === undefined) {
-      setCompareDate(new Date().toLocaleString());
-    } else if (selectedDate instanceof Date) {
-      setCompareDate(
-        selectedDate.getFullYear() +
-          "-" +
-          (selectedDate.getMonth() + 1) +
-          "-" +
-          selectedDate.getDate()
-      );
-    }
-  }, [selectedDate]);
+  let [nowDay] = useState(Intl.DateTimeFormat("fr-CA").format(today));
 
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     // 藉由 parent component 傳下來的選擇日期函式，設定已選擇日期
@@ -156,16 +139,11 @@ export const DateView: React.VFC<NavigateAction & SelectDateType> = ({
 
     while (true) {
       if (calcDate.getMonth() === month) {
-        let pickDate =
-          calcDate.getFullYear() +
-          "-" +
-          (calcDate.getMonth() + 1) +
-          "-" +
-          calcDate.getDate();
+        let pickDate = Intl.DateTimeFormat("fr-CA").format(calcDate);
 
         nodeAry.push(
           <div
-            className={`element ${pickDate === compareDate ? "picked" : ""}
+            className={`element ${pickDate === selectedDate ? "picked" : ""}
             ${pickDate === nowDay ? "today" : ""} `}
             key={
               calcDate.getFullYear() +
